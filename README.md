@@ -2,7 +2,6 @@
 Live Demo: https://minewatch-ghana.vercel.app
 MineWatch Ghana is a static educational MVP for public-health awareness and mining-risk visualization in Ghana. It is built for mining workers, mining families, students, health educators, NGOs, mining-safety organizations, and community leaders.
 
-Live demo: `Coming soon`
 
 ## Short Description
 
