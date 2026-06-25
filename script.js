@@ -120,6 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupSymptomChecker();
   setupRiskAssessment();
   setupDashboard();
+  setupMineWatchAI();
 });
 
 function setupNavigation() {
@@ -363,6 +364,127 @@ function showDetailedResult(container, details) {
     ${urgentBlock}
     <p><strong>Important:</strong> MineWatch Ghana is an educational awareness tool. It does not diagnose, treat, cure, confirm disease, or replace qualified medical care.</p>
   `;
+}
+
+function setupMineWatchAI() {
+  const toggle = document.querySelector("[data-ai-toggle]");
+  const panel = document.querySelector("[data-ai-panel]");
+  const closeButton = document.querySelector("[data-ai-close]");
+  const form = document.querySelector("[data-ai-form]");
+  const input = document.querySelector("[data-ai-input]");
+  const sendButton = document.querySelector("[data-ai-send]");
+  const messages = document.querySelector("[data-ai-messages]");
+  const suggestionButtons = document.querySelectorAll("[data-ai-question]");
+
+  if (!toggle || !panel || !form || !input || !sendButton || !messages) return;
+
+  toggle.addEventListener("click", () => {
+    const isOpen = panel.classList.contains("open");
+    if (isOpen) {
+      closeAIPanel(toggle, panel);
+    } else {
+      openAIPanel(toggle, panel, input);
+    }
+  });
+
+  if (closeButton) {
+    closeButton.addEventListener("click", () => {
+      closeAIPanel(toggle, panel);
+      toggle.focus();
+    });
+  }
+
+  suggestionButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      input.value = button.dataset.aiQuestion || "";
+      sendAIQuestion({ input, messages, sendButton });
+    });
+  });
+
+  form.addEventListener("submit", (event) => {
+    event.preventDefault();
+    sendAIQuestion({ input, messages, sendButton });
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && panel.classList.contains("open")) {
+      closeAIPanel(toggle, panel);
+      toggle.focus();
+    }
+  });
+}
+
+function openAIPanel(toggle, panel, input) {
+  panel.classList.add("open");
+  panel.setAttribute("aria-hidden", "false");
+  toggle.setAttribute("aria-expanded", "true");
+  setTimeout(() => input.focus(), 50);
+}
+
+function closeAIPanel(toggle, panel) {
+  panel.classList.remove("open");
+  panel.setAttribute("aria-hidden", "true");
+  toggle.setAttribute("aria-expanded", "false");
+}
+
+async function sendAIQuestion({ input, messages, sendButton }) {
+  const question = input.value.trim();
+
+  if (!question) {
+    input.focus();
+    return;
+  }
+
+  appendAIMessage(messages, "user", question);
+  input.value = "";
+  input.focus();
+  sendButton.disabled = true;
+  sendButton.textContent = "Sending";
+
+  const loadingMessage = appendAIMessage(messages, "assistant loading", "Thinking");
+
+  try {
+    const response = await fetch("/api/ask", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ question })
+    });
+
+    if (!response.ok) throw new Error("AI request failed");
+
+    const data = await response.json();
+    loadingMessage.remove();
+    appendAIMessage(
+      messages,
+      "assistant",
+      data.answer || "I could not prepare an answer right now. Please try again later."
+    );
+  } catch (error) {
+    loadingMessage.remove();
+    appendAIMessage(
+      messages,
+      "assistant error",
+      "The AI assistant is not available right now. Please try again later."
+    );
+  } finally {
+    sendButton.disabled = false;
+    sendButton.textContent = "Send";
+  }
+}
+
+function appendAIMessage(messages, type, text) {
+  const message = document.createElement("div");
+  const paragraph = document.createElement("p");
+
+  message.className = `ai-message ${type}`;
+  paragraph.textContent = text;
+  message.append(paragraph);
+  messages.append(message);
+  messages.scrollTop = messages.scrollHeight;
+
+  return message;
 }
 
 async function setupDashboard() {

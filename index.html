@@ -485,6 +485,44 @@
       </div>
     </footer>
 
+    <section class="ai-widget" aria-label="Ask MineWatch AI assistant">
+      <button class="ai-toggle" type="button" aria-expanded="false" aria-controls="ai-panel" data-ai-toggle>
+        <span class="ai-toggle-icon" aria-hidden="true">+</span>
+        <span>Ask MineWatch AI</span>
+      </button>
+
+      <div class="ai-panel" id="ai-panel" aria-hidden="true" data-ai-panel>
+        <div class="ai-panel-header">
+          <div>
+            <h2>Ask MineWatch AI</h2>
+            <p>Health education only - not a diagnosis.</p>
+          </div>
+          <button class="ai-close" type="button" aria-label="Close Ask MineWatch AI" data-ai-close>&times;</button>
+        </div>
+
+        <div class="ai-messages" aria-live="polite" aria-label="Ask MineWatch AI messages" data-ai-messages>
+          <div class="ai-message assistant">
+            <p>
+              Hello. I can explain mining-related health risks in simple language. I do not diagnose disease or replace a qualified health professional.
+            </p>
+          </div>
+        </div>
+
+        <div class="ai-suggestions" aria-label="Suggested questions">
+          <button type="button" data-ai-question="What are warning signs of dust exposure?">What are warning signs of dust exposure?</button>
+          <button type="button" data-ai-question="What should I do if I cough blood?">What should I do if I cough blood?</button>
+          <button type="button" data-ai-question="How can miners reduce mercury exposure?">How can miners reduce mercury exposure?</button>
+          <button type="button" data-ai-question="What is pneumoconiosis?">What is pneumoconiosis?</button>
+        </div>
+
+        <form class="ai-form" data-ai-form>
+          <label class="sr-only" for="ai-question">Ask MineWatch AI a question</label>
+          <input id="ai-question" name="question" type="text" maxlength="700" autocomplete="off" placeholder="Ask a mining-health education question..." data-ai-input />
+          <button class="ai-send" type="submit" data-ai-send>Send</button>
+        </form>
+      </div>
+    </section>
+
     <script src="script.js"></script>
   </body>
 </html>

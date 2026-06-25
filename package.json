@@ -1,0 +1,12 @@
+{
+  "name": "minewatch-ghana",
+  "version": "1.0.0",
+  "description": "Static MineWatch Ghana public-health awareness site with a Vercel serverless AI education assistant.",
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev"
+  },
+  "dependencies": {
+    "openai": "^4.104.0"
+  }
+}
