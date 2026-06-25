@@ -1062,6 +1062,14 @@ select {
   animation: ai-dots 1.2s steps(4, end) infinite;
 }
 
+.ai-offline-note {
+  margin: 0;
+  padding: 0 1rem 0.8rem;
+  color: var(--soft);
+  font-size: 0.84rem;
+  font-weight: 750;
+}
+
 .ai-suggestions {
   display: flex;
   flex-wrap: wrap;

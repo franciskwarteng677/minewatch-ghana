@@ -427,7 +427,9 @@ function closeAIPanel(toggle, panel) {
   toggle.setAttribute("aria-expanded", "false");
 }
 
-async function sendAIQuestion({ input, messages, sendButton }) {
+function sendAIQuestion({ input, messages, sendButton }) {
+  if (sendButton.disabled) return;
+
   const question = input.value.trim();
 
   if (!question) {
@@ -439,39 +441,108 @@ async function sendAIQuestion({ input, messages, sendButton }) {
   input.value = "";
   input.focus();
   sendButton.disabled = true;
-  sendButton.textContent = "Sending";
+  sendButton.textContent = "Thinking";
 
   const loadingMessage = appendAIMessage(messages, "assistant loading", "Thinking");
 
-  try {
-    const response = await fetch("/api/ask", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ question })
-    });
-
-    if (!response.ok) throw new Error("AI request failed");
-
-    const data = await response.json();
+  window.setTimeout(() => {
+    const answer = generateMineWatchResponse(question);
     loadingMessage.remove();
-    appendAIMessage(
-      messages,
-      "assistant",
-      data.answer || "I could not prepare an answer right now. Please try again later."
-    );
-  } catch (error) {
-    loadingMessage.remove();
-    appendAIMessage(
-      messages,
-      "assistant error",
-      "The AI assistant is not available right now. Please try again later."
-    );
-  } finally {
+    appendAIMessage(messages, "assistant", answer);
     sendButton.disabled = false;
     sendButton.textContent = "Send";
+  }, 220);
+}
+
+function generateMineWatchResponse(question) {
+  const text = question.toLowerCase();
+  const disclaimer = "This is health education only, not a diagnosis. A qualified health professional should evaluate persistent, severe, or worsening symptoms.";
+  const urgentWarning =
+    "Seek medical attention as soon as possible. This assistant cannot diagnose disease, but this symptom should not be ignored.";
+
+  if (
+    hasAny(text, [
+      "coughing blood",
+      "cough blood",
+      "blood in cough",
+      "severe chest pain",
+      "cannot breathe",
+      "difficulty breathing",
+      "severe shortness of breath",
+      "fainting",
+      "confusion",
+      "very high fever",
+      "worsening symptoms"
+    ])
+  ) {
+    return `${urgentWarning} If you can, move away from dust, fumes, mercury, or chemicals while seeking help. ${disclaimer}`;
   }
+
+  if (hasAny(text, ["dust", "dust exposure", "inhalation", "crushing", "drilling", "ore handling", "rock dust"])) {
+    return `Dust from mining, crushing, drilling, blasting, roads, or ore handling can irritate the lungs and may contribute to long-term breathing problems. Practical steps include reducing dust at the source, using wet methods where possible, improving ventilation, avoiding dust clouds, and using appropriate respiratory protection. If cough, chest tightness, or breathlessness continues, seek medical screening. ${disclaimer}`;
+  }
+
+  if (hasAny(text, ["silica", "silicosis"])) {
+    return `Silica is a harmful fine dust that can come from cutting, drilling, crushing, or handling certain rocks. Breathing silica repeatedly over time can damage the lungs. Use wet methods, ventilation, dust controls, and appropriate respirators, and seek screening for persistent cough or breathlessness. ${disclaimer}`;
+  }
+
+  if (hasAny(text, ["pneumoconiosis", "black lung", "lung disease from dust", "lung scarring"])) {
+    return `Pneumoconiosis is a long-term lung disease caused by breathing harmful dust over time. In simple terms, dust can scar the lungs and make breathing harder. It needs medical evaluation and cannot be confirmed by this website or assistant. ${disclaimer}`;
+  }
+
+  if (hasAny(text, ["mercury", "amalgam", "burning mercury", "mercury vapor"])) {
+    return `Mercury can harm health, especially when it is handled directly or burned. Mercury vapor can affect workers, families, children, and pregnant women. Avoid burning mercury near homes, avoid touching it with bare hands, wash hands after possible contact, keep children away from contaminated areas, and seek health advice if symptoms occur. ${disclaimer}`;
+  }
+
+  if (hasAny(text, ["chemical", "chemicals", "acid", "cyanide", "fuel", "solvent", "contaminated water"])) {
+    return `Mining chemicals, fuels, acids, solvents, or contaminated water can irritate the skin, eyes, lungs, or stomach. Reduce direct contact, avoid fumes, wash exposed skin with clean water, store chemicals away from children and food, and seek medical advice if symptoms appear after exposure. ${disclaimer}`;
+  }
+
+  if (hasAny(text, ["persistent cough", "long cough", "cough", "coughing"])) {
+    return `A persistent cough can come from many causes, including dust irritation, respiratory infection, smoke, or other health problems. In mining areas, a cough that continues should not be ignored, especially with chest pain, fever, weight loss, breathlessness, or blood. Seek screening from a qualified health worker if it continues. ${disclaimer}`;
+  }
+
+  if (hasAny(text, ["chest pain", "chest tightness", "pain in chest"])) {
+    return `Chest pain or tightness can have many causes. In mining communities, dust, infection, heavy work, or other conditions may be involved. If chest pain is severe, worsening, or comes with breathlessness, fainting, sweating, or coughing blood, seek medical attention as soon as possible. ${disclaimer}`;
+  }
+
+  if (hasAny(text, ["shortness of breath", "breathless", "breathlessness", "hard to breathe", "breathing problem"])) {
+    return `Shortness of breath can be a warning sign, especially after dust, chemical, or mercury exposure, or with fever or chest pain. Move away from dust or fumes, rest, and seek medical care if it is severe, worsening, new, or affecting daily activity. ${disclaimer}`;
+  }
+
+  if (hasAny(text, ["fever", "high temperature", "temperature", "pneumonia", "infection"])) {
+    return `Fever with cough, chest pain, fast breathing, chills, weakness, or worsening breathlessness may suggest a respiratory infection such as pneumonia. This needs attention from a qualified health professional, especially if fever is high or symptoms are worsening. ${disclaimer}`;
+  }
+
+  if (hasAny(text, ["ppe", "mask", "masks", "respirator", "respirators", "protection"])) {
+    return `Cloth alone may not protect well from fine mining dust. Appropriate respirators or masks, correct fit, replacement when dirty or damaged, and dust control at the source are all important. PPE works best with wet methods, ventilation, and keeping dusty work away from homes. ${disclaimer}`;
+  }
+
+  if (hasAny(text, ["prevention", "prevent", "reduce risk", "safe", "safety", "protect"])) {
+    return `Practical prevention steps include reducing dust at the source, using wet methods where possible, improving ventilation, wearing appropriate masks or respirators, avoiding direct mercury or chemical contact, keeping children away from mining chemicals, and seeking screening for persistent cough or breathlessness. ${disclaimer}`;
+  }
+
+  if (hasAny(text, ["work history", "mining history", "years", "worked in mine", "worked near mining", "exposure history"])) {
+    return `Mining work history matters because repeated exposure over months or years can increase concern for dust, silica, mercury, chemical, or respiratory problems. Keep track of years worked, tasks done, dust levels, PPE use, mercury or chemical contact, and symptoms. Share this history with a qualified health worker during screening. ${disclaimer}`;
+  }
+
+  if (hasAny(text, ["screening", "medical screening", "checkup", "health check", "doctor", "clinic", "hospital"])) {
+    return `Medical screening can help a qualified health worker evaluate symptoms and exposure history. Screening may be especially important for persistent cough, breathlessness, chest pain, fever, weight loss, coughing blood, or many years of dusty work. This assistant cannot confirm disease. ${disclaimer}`;
+  }
+
+  if (hasAny(text, ["children", "child", "families", "family", "pregnant", "home", "school"])) {
+    return `Children and families near mining areas should be protected from dust, mercury, chemicals, and contaminated soil or water. Keep mining chemicals away from homes, food, water, and schools. Avoid burning mercury near people, wash hands after possible exposure, and keep children away from processing areas. ${disclaimer}`;
+  }
+
+  if (hasAny(text, ["mining health", "health risk", "health risks", "mine risk", "mining risks", "general risk"])) {
+    return `Common mining-related health concerns include dust inhalation, silica exposure, mercury exposure, chemical contact, respiratory infections, persistent cough, chest pain, and breathlessness. Prevention, PPE, safer handling, dust control, and early screening are important. ${disclaimer}`;
+  }
+
+  return "I may not have a specific answer for that yet, but MineWatch Ghana can help with dust exposure, mercury exposure, chemical exposure, cough, chest pain, breathlessness, PPE, prevention, and when to seek medical care. Please ask about one of those topics.";
+}
+
+function hasAny(text, phrases) {
+  return phrases.some((phrase) => text.includes(phrase));
 }
 
 function appendAIMessage(messages, type, text) {

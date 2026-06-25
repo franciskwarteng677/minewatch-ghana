@@ -12,17 +12,16 @@ This project is for health education and early awareness. It does not diagnose d
 
 ## Ask MineWatch AI
 
-Ask MineWatch AI is a safe educational chat assistant for mining-health questions. It can explain topics such as dust inhalation, silica, mercury exposure, chemical exposure, PPE, respiratory warning signs, prevention, and when to seek care.
+Ask MineWatch AI is a free rule-based educational chat assistant for mining-health questions. It runs fully in the browser with vanilla JavaScript, so it works with Live Server and static deployment without any API key, backend, billing, or external AI service.
 
 The assistant is not a doctor. It does not diagnose, treat, cure, confirm disease, predict confirmed disease, or replace care from qualified medical professionals. For severe or worsening symptoms, it should advise users to seek medical attention as soon as possible.
 
-Security design:
+Current design:
 
-- The browser never receives the OpenAI API key.
-- The frontend sends questions to `/api/ask`.
-- `api/ask.js` reads `process.env.OPENAI_API_KEY` on the server only.
-- `.env`, `.env.local`, `node_modules`, and `.vercel` are ignored by Git.
-- API usage is billed separately from a ChatGPT subscription.
+- Responses are generated locally in `script.js`.
+- No OpenAI API, OpenAI SDK, API key, serverless function, or payment is required.
+- The assistant uses keyword and phrase matching for topics such as dust, silica, pneumoconiosis, mercury, chemicals, cough, chest pain, breathlessness, PPE, prevention, mining work history, screening, and family protection.
+- Future versions may connect to reviewed AI models if funding, API access, ethical review, and health-worker oversight become available.
 
 ## Problem Statement
 
@@ -58,10 +57,8 @@ The tone is intentionally serious, respectful, and humanitarian. It avoids fear-
 - CSS
 - Vanilla JavaScript
 - JSON
-- Vercel serverless function for the AI route
-- OpenAI SDK, used only inside `api/ask.js`
 
-No frontend frameworks, React, Next.js, Vite, Tailwind, databases, authentication, or client-side API keys are used.
+No frontend frameworks, React, Next.js, Vite, Tailwind, backend code, databases, authentication, external AI service, or client-side API keys are used.
 
 ## How To Run Locally
 
@@ -71,17 +68,9 @@ You can also use any simple static server. If your local browser blocks JSON loa
 
 Important local testing note:
 
-- Live Server can preview the static website, dashboard, symptom checker, and risk assessment.
-- Live Server does not run Vercel serverless functions.
-- Ask MineWatch AI requires Vercel local development or deployment with `OPENAI_API_KEY` configured.
-
-For AI testing with Vercel local development:
-
-1. Install dependencies for the serverless function.
-2. Create a local `.env` file from `.env.example`.
-3. Set `OPENAI_API_KEY` to your OpenAI API key.
-4. Run Vercel local development from the project root.
-5. Open the local Vercel URL and test the Ask MineWatch AI panel.
+- Live Server can preview the static website, dashboard, symptom checker, risk assessment, and Ask MineWatch AI.
+- Ask MineWatch AI works locally because it is rule-based and runs in the browser.
+- No `OPENAI_API_KEY`, Vercel local function runtime, npm install, or backend setup is required for the current version.
 
 ## How To Deploy
 
@@ -95,13 +84,12 @@ GitHub Pages:
 Vercel:
 
 1. Import the repository into Vercel.
-2. Add the environment variable `OPENAI_API_KEY` in Vercel project settings.
-3. Use the default static-site plus serverless-function setup.
-4. Leave the build command empty unless Vercel asks to install dependencies automatically.
-5. Deploy the project.
-6. Test `/api/ask` through the Ask MineWatch AI panel after deployment.
+2. Use the default static-site setup.
+3. Leave the build command empty.
+4. Deploy the project.
+5. Test the Ask MineWatch AI panel after deployment.
 
-API key safety note: never place `OPENAI_API_KEY` in `index.html`, `script.js`, browser console code, or any frontend file. Keep it in Vercel environment variables or a local `.env` file that is ignored by Git.
+The current version does not require environment variables or paid API setup. Future optional AI API versions should keep all API keys out of frontend files.
 
 ## Data Limitations
 
@@ -138,7 +126,7 @@ MineWatch Ghana is an educational awareness tool. It does not diagnose, treat, c
 
 For severe or worsening symptoms such as coughing blood, severe chest pain, severe shortness of breath, confusion or fainting, very high fever, or rapidly worsening illness, users should seek medical attention as soon as possible.
 
-Any future AI or data collection feature should use privacy protection, consent, data minimization, fairness review, transparent limitations, and health-worker oversight.
+Any future AI API or data collection feature should use privacy protection, consent, data minimization, fairness review, transparent limitations, and health-worker oversight.
 
 ## Future AI Roadmap
 
@@ -152,7 +140,7 @@ Phase 4: AI-assisted occupational disease risk prediction using work history, ex
 
 Phase 5: Partnerships with health workers, NGOs, mining communities, public-health researchers, and responsible institutions
 
-AI features would require ethical review, privacy safeguards, clinical oversight, and clear language that results are decision-support outputs rather than diagnoses.
+The current assistant is rule-based and free. Future AI-model features would require ethical review, privacy safeguards, clinical oversight, sustainable funding or API access, and clear language that results are decision-support outputs rather than diagnoses.
 
 ## Future Partnership Roadmap
 
@@ -177,10 +165,7 @@ Add screenshots before publishing the repository profile:
 
 - `index.html` - Semantic one-page website structure.
 - `styles.css` - Responsive visual design, dashboard styling, accessibility states, and animations.
-- `script.js` - Navigation, reveal animations, counters, symptom checker, exposure assessment, dashboard search/filtering, and chart rendering.
-- `api/ask.js` - Vercel serverless function that calls the OpenAI Responses API with server-side guardrails.
+- `script.js` - Navigation, reveal animations, counters, symptom checker, exposure assessment, dashboard search/filtering, chart rendering, and the local rule-based Ask MineWatch AI assistant.
 - `data/mining-risk-data.json` - Educational sample exposure-risk data for selected Ghanaian mining areas.
-- `package.json` - Minimal OpenAI SDK dependency for the serverless AI route.
-- `.env.example` - Environment variable template for `OPENAI_API_KEY`.
-- `.gitignore` - Ignores local secrets, Vercel files, and dependencies.
+- `.gitignore` - Ignores local secrets, Vercel files, and dependencies if future tooling is added.
 - `README.md` - GitHub-ready project documentation, safety boundaries, deployment guidance, and roadmap.
