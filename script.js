@@ -1,93 +1,115 @@
 const dashboardState = {
   data: [],
-  activeFilter: "All"
+  activeFilter: "All",
+  searchTerm: ""
 };
 
 const fallbackMiningRiskData = [
   {
+    id: "ashanti-obuasi",
     region: "Ashanti Region",
-    area: "Obuasi",
-    riskLevel: "High educational risk",
+    keyTown: "Obuasi",
+    miningType: "Deep and surface gold mining, ore handling, and processing",
     riskScore: 88,
-    mainActivity: "Deep and surface gold mining, ore handling, and processing",
-    keyExposureRisks: ["Silica dust", "Respiratory disease", "Chemical processing"],
-    suggestedHealthFocus: "Dust reduction, respirator use, lung screening, and early care for chronic cough or breathlessness.",
-    categories: ["Dust", "Chemical", "Respiratory"]
+    riskLevel: "High",
+    exposureCategories: ["Dust", "Chemical", "Respiratory"],
+    possibleHealthConcerns: ["Silica dust exposure", "Chronic cough", "Breathlessness", "Chest irritation"],
+    preventionFocus: "Dust reduction, respirator use, wet methods, ventilation, and early lung screening.",
+    sourceBasis: "Educational sample based on mining-location context and occupational exposure categories.",
+    methodologyNote: "Educational risk index - not live disease data."
   },
   {
+    id: "western-tarkwa-prestea",
     region: "Western Region",
-    area: "Tarkwa-Prestea area",
-    riskLevel: "High educational risk",
+    keyTown: "Tarkwa-Prestea",
+    miningType: "Gold mining, haul roads, crushing, and mineral processing",
     riskScore: 84,
-    mainActivity: "Gold mining, haul roads, crushing, and mineral processing",
-    keyExposureRisks: ["Mine dust", "Silica exposure", "Processing chemicals"],
-    suggestedHealthFocus: "Control visible dust, protect processing workers, and encourage regular respiratory checks.",
-    categories: ["Dust", "Chemical", "Respiratory"]
+    riskLevel: "High",
+    exposureCategories: ["Dust", "Chemical", "Respiratory"],
+    possibleHealthConcerns: ["Mine dust exposure", "Silica exposure", "Processing chemical contact"],
+    preventionFocus: "Control visible dust, protect processing workers, and encourage regular respiratory checks.",
+    sourceBasis: "Educational sample based on known mining activity and broad health-risk literature.",
+    methodologyNote: "Educational risk index - not live disease data."
   },
   {
-    region: "Western North",
-    area: "Bibiani area",
-    riskLevel: "Moderate to high educational risk",
+    id: "western-north-bibiani",
+    region: "Western North Region",
+    keyTown: "Bibiani",
+    miningType: "Gold mining and community-level ore processing",
     riskScore: 76,
-    mainActivity: "Gold mining and community-level ore processing",
-    keyExposureRisks: ["Dust", "Mercury handling", "Respiratory symptoms"],
-    suggestedHealthFocus: "Safe processing practices, avoiding mercury vapor, and early screening for persistent cough.",
-    categories: ["Dust", "Mercury", "Respiratory"]
+    riskLevel: "Moderate to High",
+    exposureCategories: ["Dust", "Mercury", "Respiratory"],
+    possibleHealthConcerns: ["Dust irritation", "Mercury vapor exposure", "Persistent cough"],
+    preventionFocus: "Safe processing practices, avoiding mercury vapor, and early screening for persistent cough.",
+    sourceBasis: "Educational sample based on exposure categories common to gold mining communities.",
+    methodologyNote: "Educational risk index - not live disease data."
   },
   {
+    id: "central-dunkwa",
     region: "Central Region",
-    area: "Dunkwa-on-Offin area",
-    riskLevel: "Moderate to high educational risk",
+    keyTown: "Dunkwa-on-Offin",
+    miningType: "Alluvial and small-scale gold mining near river systems",
     riskScore: 73,
-    mainActivity: "Alluvial and small-scale gold mining near river systems",
-    keyExposureRisks: ["Mercury exposure", "Contaminated water", "Dust"],
-    suggestedHealthFocus: "Mercury-safe education, protecting children from chemicals, and reducing dust around processing sites.",
-    categories: ["Dust", "Mercury", "Chemical"]
+    riskLevel: "Moderate to High",
+    exposureCategories: ["Dust", "Mercury", "Chemical"],
+    possibleHealthConcerns: ["Mercury contact", "Contaminated water exposure", "Dust exposure"],
+    preventionFocus: "Mercury-safe education, child protection, safer storage, and dust reduction around processing sites.",
+    sourceBasis: "Educational sample based on mining-location context and known exposure categories.",
+    methodologyNote: "Educational risk index - not live disease data."
   },
   {
-    region: "Upper East",
-    area: "Bolgatanga-Kejetia area",
-    riskLevel: "Moderate educational risk",
+    id: "upper-east-bolgatanga-kejetia",
+    region: "Upper East Region",
+    keyTown: "Bolgatanga-Kejetia",
+    miningType: "Artisanal and small-scale gold mining",
     riskScore: 68,
-    mainActivity: "Artisanal and small-scale gold mining",
-    keyExposureRisks: ["Mercury burning", "Dust", "Chemical contact"],
-    suggestedHealthFocus: "Avoid burning mercury in homes, improve ventilation, and seek care for breathing or nervous-system symptoms.",
-    categories: ["Dust", "Mercury", "Chemical", "Respiratory"]
+    riskLevel: "Moderate",
+    exposureCategories: ["Dust", "Mercury", "Chemical", "Respiratory"],
+    possibleHealthConcerns: ["Mercury burning exposure", "Dust inhalation", "Chemical contact"],
+    preventionFocus: "Avoid burning mercury near homes, improve ventilation, and seek care for breathing or nervous-system symptoms.",
+    sourceBasis: "Educational sample based on occupational health literature and artisanal mining exposure patterns.",
+    methodologyNote: "Educational risk index - not live disease data."
   },
   {
+    id: "ahafo-kenyasi",
     region: "Ahafo Region",
-    area: "Kenyasi area",
-    riskLevel: "Moderate educational risk",
+    keyTown: "Kenyasi",
+    miningType: "Large-scale gold mining and nearby community exposure",
     riskScore: 64,
-    mainActivity: "Large-scale gold mining and nearby community exposure",
-    keyExposureRisks: ["Dust from roads", "Respiratory irritation", "Chemical handling"],
-    suggestedHealthFocus: "Community dust control, protective equipment for workers, and routine checks for respiratory symptoms.",
-    categories: ["Dust", "Chemical", "Respiratory"]
+    riskLevel: "Moderate",
+    exposureCategories: ["Dust", "Chemical", "Respiratory"],
+    possibleHealthConcerns: ["Road dust", "Respiratory irritation", "Chemical handling concerns"],
+    preventionFocus: "Community dust control, protective equipment for workers, and routine checks for respiratory symptoms.",
+    sourceBasis: "Educational sample based on mining-location context and public-health exposure categories.",
+    methodologyNote: "Educational risk index - not live disease data."
   },
   {
+    id: "eastern-atiwa",
     region: "Eastern Region",
-    area: "Atiwa area",
-    riskLevel: "Moderate educational risk",
+    keyTown: "Atiwa",
+    miningType: "Bauxite exploration context, quarrying, and community dust concerns",
     riskScore: 59,
-    mainActivity: "Bauxite exploration context, quarrying, and community dust concerns",
-    keyExposureRisks: ["Dust", "Land disturbance", "Respiratory irritation"],
-    suggestedHealthFocus: "Prevent dust exposure during excavation and transport, and monitor cough or breathing complaints early.",
-    categories: ["Dust", "Respiratory"]
+    riskLevel: "Moderate",
+    exposureCategories: ["Dust", "Respiratory"],
+    possibleHealthConcerns: ["Dust exposure", "Land disturbance", "Cough or breathing irritation"],
+    preventionFocus: "Prevent dust exposure during excavation and transport, and monitor cough or breathing complaints early.",
+    sourceBasis: "Educational sample based on mining-location context and dust exposure categories.",
+    methodologyNote: "Educational risk index - not live disease data."
   }
 ];
 
-const riskMessages = {
+const symptomAdvice = {
   low: {
     title: "Low awareness risk",
-    body: "You selected few warning signs. Keep protecting yourself from dust and chemicals, and seek health advice if symptoms continue or worsen."
+    nextStep: "Keep reducing dust and chemical exposure. Watch for symptoms that continue, return, or become worse."
   },
   moderate: {
     title: "Moderate awareness risk",
-    body: "Some symptoms or exposure factors may need attention. Consider speaking with a qualified health professional, especially if symptoms last more than a few days."
+    nextStep: "Consider speaking with a qualified health worker, especially if symptoms last more than a few days or affect work, sleep, or daily activity."
   },
   high: {
     title: "High awareness risk",
-    body: "Please seek medical attention as soon as possible, especially if symptoms are persistent or worsening. This tool does not diagnose disease."
+    nextStep: "Seek medical attention as soon as possible. This website cannot diagnose disease, but these symptoms should not be ignored."
   }
 };
 
@@ -192,14 +214,47 @@ function setupSymptomChecker() {
     event.preventDefault();
     const selected = Array.from(form.querySelectorAll("input[type='checkbox']:checked"));
     const score = selected.reduce((total, input) => total + Number(input.value), 0);
-    const hasUrgent = selected.some((input) => input.dataset.urgent === "true");
+    const urgentSelections = selected.filter((input) => input.dataset.urgent === "true");
+    const selectedLabels = selected.map((input) => input.parentElement.textContent.trim());
 
     let level = "low";
-    if (score >= 10 || hasUrgent) level = "high";
+    if (score >= 10 || urgentSelections.length) level = "high";
     else if (score >= 5) level = "moderate";
 
-    showResult(result, level, riskMessages[level].title, riskMessages[level].body);
+    const reasons = selectedLabels.length
+      ? selectedLabels
+      : ["No symptoms or exposure factors were selected."];
+    const urgentMessage = urgentSelections.length
+      ? "Seek medical attention as soon as possible. This website cannot diagnose disease, but these symptoms should not be ignored."
+      : "";
+
+    showDetailedResult(result, {
+      level,
+      label: `${level} awareness result`,
+      title: symptomAdvice[level].title,
+      score,
+      reasons,
+      explanation: buildSymptomExplanation(level, urgentSelections.length),
+      nextStep: symptomAdvice[level].nextStep,
+      urgentMessage
+    });
   });
+}
+
+function buildSymptomExplanation(level, urgentCount) {
+  if (urgentCount) {
+    return "A severe warning sign was selected, so the awareness level is high regardless of the total score.";
+  }
+
+  if (level === "high") {
+    return "Several symptoms or exposure factors were selected, creating a higher awareness score.";
+  }
+
+  if (level === "moderate") {
+    return "Some symptoms or exposure factors were selected, so it is worth paying attention early.";
+  }
+
+  return "Few warning signs were selected, but ongoing dust, mercury, or chemical exposure should still be reduced.";
 }
 
 function setupRiskAssessment() {
@@ -212,45 +267,93 @@ function setupRiskAssessment() {
     const data = new FormData(form);
     const years = Math.max(0, Number(data.get("years") || 0));
     const yearsScore = years >= 10 ? 4 : years >= 5 ? 3 : years >= 1 ? 1 : 0;
-    const score =
-      yearsScore +
-      Number(data.get("activity")) +
-      Number(data.get("mask")) +
-      Number(data.get("dust")) +
-      Number(data.get("chemicals")) +
-      Number(data.get("screening"));
+    const fields = [
+      {
+        name: "Years near mining work",
+        value: yearsScore,
+        answer: years ? `${years} year${years === 1 ? "" : "s"}` : "Less than 1 year"
+      },
+      getSelectRisk(form, "environment", "Mining environment"),
+      getSelectRisk(form, "dust", "Dust exposure frequency"),
+      getSelectRisk(form, "ppe", "Mask/PPE use"),
+      getSelectRisk(form, "chemicals", "Mercury or chemical handling"),
+      getSelectRisk(form, "screening", "Medical screening access")
+    ];
 
-    let level = "low";
-    let title = "Lower exposure risk";
-    let body = "Keep using protection, reducing dust exposure, and attending regular medical screening when available.";
+    const score = fields.reduce((total, field) => total + field.value, 0);
+    const increasedRisk = fields.filter((field) => field.value >= 2);
+    const level = score >= 14 ? "high" : score >= 8 ? "moderate" : "low";
+    const titles = {
+      low: "Lower exposure risk",
+      moderate: "Moderate exposure risk",
+      high: "High exposure risk"
+    };
+    const preventionAdvice = {
+      low: "Keep using protection, reducing dust, and attending screening when available.",
+      moderate: "Improve mask use, reduce dusty tasks where possible, avoid direct chemical contact, and arrange screening if symptoms continue.",
+      high: "Prioritize dust controls, proper respiratory protection, safer chemical handling, medical screening, and urgent care for severe or worsening symptoms."
+    };
+    const nextSteps = {
+      low: "Continue prevention habits and review this assessment again if your work conditions change.",
+      moderate: "Talk with a health worker or safety leader about reducing exposure and getting a respiratory check.",
+      high: "Seek screening from a qualified health professional and reduce high-exposure work until you receive proper guidance."
+    };
 
-    if (score >= 12) {
-      level = "high";
-      title = "High exposure risk";
-      body = "Suggested next steps: reduce dusty or chemical tasks where possible, use proper respiratory protection, seek medical screening, and get urgent care for severe or worsening symptoms.";
-    } else if (score >= 7) {
-      level = "moderate";
-      title = "Moderate exposure risk";
-      body = "Suggested next steps: improve mask use, reduce visible dust exposure, avoid direct chemical contact, and arrange screening if coughing or breathing problems continue.";
-    }
-
-    showResult(result, level, title, body);
+    showDetailedResult(result, {
+      level,
+      label: `${level} exposure result`,
+      title: titles[level],
+      score,
+      reasons: increasedRisk.length
+        ? increasedRisk.map((field) => `${field.name}: ${field.answer}`)
+        : ["No major risk-increasing answers were selected."],
+      explanation: "The score combines years near mining work, environment, dust frequency, PPE use, chemical exposure, and screening access.",
+      nextStep: nextSteps[level],
+      preventionAdvice: preventionAdvice[level]
+    });
   });
 }
 
-function showResult(container, level, title, body) {
+function getSelectRisk(form, name, label) {
+  const select = form.elements[name];
+  const selectedOption = select.options[select.selectedIndex];
+
+  return {
+    name: label,
+    value: Number(select.value),
+    answer: selectedOption.textContent.trim()
+  };
+}
+
+function showDetailedResult(container, details) {
   container.classList.remove("low", "moderate", "high");
-  container.classList.add(level);
+  container.classList.add(details.level);
+
+  const urgentBlock = details.urgentMessage
+    ? `<div class="urgent-note" role="alert">${details.urgentMessage}</div>`
+    : "";
+  const preventionBlock = details.preventionAdvice
+    ? `<p><strong>Practical prevention advice:</strong> ${details.preventionAdvice}</p>`
+    : "";
+
   container.innerHTML = `
-    <span class="result-label">${level} result</span>
-    <h3>${title}</h3>
-    <p>${body}</p>
-    <p><strong>Important:</strong> MineWatch Ghana is for health education and early awareness only. It does not diagnose disease or replace qualified medical care.</p>
+    <span class="result-label">${details.label}</span>
+    <h3>${details.title}</h3>
+    <p><strong>Score:</strong> ${details.score}</p>
+    <p><strong>Why this result appeared:</strong> ${details.explanation}</p>
+    <ul class="result-list">
+      ${details.reasons.map((reason) => `<li>${reason}</li>`).join("")}
+    </ul>
+    ${preventionBlock}
+    <p><strong>Recommended next step:</strong> ${details.nextStep}</p>
+    ${urgentBlock}
+    <p><strong>Important:</strong> MineWatch Ghana is an educational awareness tool. It does not diagnose, treat, cure, confirm disease, or replace qualified medical care.</p>
   `;
 }
 
 async function setupDashboard() {
   const filterButtons = document.querySelectorAll(".filter-btn");
+  const searchInput = document.querySelector("#dashboard-search");
 
   filterButtons.forEach((button) => {
     button.addEventListener("click", () => {
@@ -260,6 +363,13 @@ async function setupDashboard() {
       renderDashboard();
     });
   });
+
+  if (searchInput) {
+    searchInput.addEventListener("input", () => {
+      dashboardState.searchTerm = searchInput.value.trim().toLowerCase();
+      renderDashboard();
+    });
+  }
 
   try {
     const response = await fetch("data/mining-risk-data.json");
@@ -274,15 +384,51 @@ async function setupDashboard() {
 
 function renderDashboard() {
   const regions = getFilteredRegions();
+  renderSummaryCards(regions);
   renderRegionCards(regions);
   renderChart(regions);
 }
 
 function getFilteredRegions() {
-  if (dashboardState.activeFilter === "All") return dashboardState.data;
-  return dashboardState.data.filter((region) =>
-    region.categories.includes(dashboardState.activeFilter)
-  );
+  return dashboardState.data.filter((region) => {
+    const matchesFilter =
+      dashboardState.activeFilter === "All" ||
+      region.exposureCategories.includes(dashboardState.activeFilter);
+    const searchable = `${region.region} ${region.keyTown} ${region.miningType}`.toLowerCase();
+    const matchesSearch = !dashboardState.searchTerm || searchable.includes(dashboardState.searchTerm);
+
+    return matchesFilter && matchesSearch;
+  });
+}
+
+function renderSummaryCards(regions) {
+  const summary = document.querySelector("#dashboard-summary");
+  if (!summary) return;
+
+  const average = regions.length
+    ? Math.round(regions.reduce((total, region) => total + Number(region.riskScore), 0) / regions.length)
+    : 0;
+  const highCount = regions.filter((region) => region.riskLevel.toLowerCase().includes("high")).length;
+  const categories = new Set(regions.flatMap((region) => region.exposureCategories));
+
+  summary.innerHTML = `
+    <article class="summary-card">
+      <span>${regions.length}</span>
+      <p>areas shown</p>
+    </article>
+    <article class="summary-card">
+      <span>${average}/100</span>
+      <p>average educational score</p>
+    </article>
+    <article class="summary-card">
+      <span>${highCount}</span>
+      <p>higher-risk areas</p>
+    </article>
+    <article class="summary-card">
+      <span>${categories.size}</span>
+      <p>exposure categories</p>
+    </article>
+  `;
 }
 
 function renderRegionCards(regions) {
@@ -290,7 +436,7 @@ function renderRegionCards(regions) {
   if (!grid) return;
 
   if (!regions.length) {
-    grid.innerHTML = `<p class="location">No regions match this filter.</p>`;
+    grid.innerHTML = `<p class="empty-state">No areas match this search or filter. Educational risk index - not live disease data.</p>`;
     return;
   }
 
@@ -298,14 +444,18 @@ function renderRegionCards(regions) {
     .map(
       (region) => `
         <article class="region-card reveal visible">
-          <span class="badge ${riskClass(region.riskLevel)}">${region.riskLevel}</span>
+          <span class="badge ${riskClass(region.riskLevel)}">${region.riskLevel} risk</span>
           <h3>${region.region}</h3>
-          <p class="location">${region.area}</p>
-          <p><strong>Main mining activity:</strong> ${region.mainActivity}</p>
-          <div class="tag-list" aria-label="Key exposure risks">
-            ${region.keyExposureRisks.map((risk) => `<span>${risk}</span>`).join("")}
+          <p class="location">${region.keyTown}</p>
+          <p><strong>Mining context:</strong> ${region.miningType}</p>
+          <p><strong>Risk score:</strong> ${region.riskScore}/100</p>
+          <div class="tag-list" aria-label="Exposure categories">
+            ${region.exposureCategories.map((risk) => `<span>${risk}</span>`).join("")}
           </div>
-          <p><strong>Suggested health focus:</strong> ${region.suggestedHealthFocus}</p>
+          <p><strong>Possible health concerns:</strong> ${region.possibleHealthConcerns.join(", ")}</p>
+          <p><strong>Prevention focus:</strong> ${region.preventionFocus}</p>
+          <p><strong>Source basis:</strong> ${region.sourceBasis}</p>
+          <p class="method-note">${region.methodologyNote}</p>
         </article>
       `
     )
@@ -324,11 +474,11 @@ function renderChart(regions) {
       (region) => `
         <div class="bar-item">
           <div class="bar-meta">
-            <span>${region.area}</span>
+            <span>${region.keyTown}</span>
             <strong>${region.riskScore}/100</strong>
           </div>
           <div class="bar-track">
-            <div class="bar-fill" style="--bar-width: ${region.riskScore}%"></div>
+            <div class="bar-fill ${riskClass(region.riskLevel)}" style="--bar-width: ${region.riskScore}%"></div>
           </div>
         </div>
       `

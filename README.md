@@ -1,61 +1,49 @@
 # MineWatch Ghana
 
-MineWatch Ghana is a static public-health awareness website for mining workers, mining families, students, local communities, NGOs, health educators, and policymakers in Ghana.
+MineWatch Ghana is a lightweight public-health awareness and mining-risk education website for Ghanaian mining workers, mining families, students, educators, NGOs, mining-safety groups, and community leaders.
 
-The project explains mining-related health risks in simple English, supports early awareness through interactive tools, and visualizes educational risk categories for selected Ghanaian mining areas.
+The project turns personal loss into public protection by explaining mining-related health risks in simple language, supporting early awareness, and visualizing educational exposure-risk categories for selected mining areas in Ghana.
 
-## Important Safety Notice
+## Problem Statement
 
-MineWatch Ghana is an educational awareness tool. It is not a medical diagnosis system and does not replace a qualified health professional.
+Many mining workers and families are exposed to dust, silica, mercury, processing chemicals, and respiratory infection risks without receiving early, understandable health information. Symptoms such as persistent cough, breathlessness, chest pain, fever, or coughing blood may be ignored until illness becomes severe.
 
-For symptoms such as coughing blood, severe chest pain, severe breathlessness, high fever, or rapidly worsening illness, users should seek urgent medical care.
+MineWatch Ghana does not diagnose disease. It helps people recognize warning signs earlier and encourages safer work practices, prevention, screening, and timely medical attention.
 
-## Files
+## Why It Matters
 
-- `index.html` - One-page semantic website structure.
-- `styles.css` - Responsive visual design, layout, accessibility states, and animations.
-- `script.js` - Navigation, reveal animations, animated counters, interactive forms, dashboard loading, filtering, and chart rendering.
-- `data/mining-risk-data.json` - Sample educational mining-risk data used by the dashboard.
-- `README.md` - Project explanation and roadmap.
+Mining supports livelihoods across Ghana, but unsafe exposure can affect workers, children, families, and surrounding communities. Clear health education can help people take prevention seriously before symptoms become dangerous.
+
+This project is designed as an early-stage civic technology and digital health portfolio project: serious, transparent, ethical, and simple enough to run as a static website.
 
 ## Features
 
-- Premium dark public-health interface with gold mining accents and green protection accents.
-- Mobile-first responsive layout.
-- Hero, mission, problem, health risks, symptom checker, risk assessment, dashboard, prevention guide, methodology, and call-to-action sections.
+- Public-health hero section with clear non-diagnostic safety messaging.
+- Plain-language health education cards for dust, silica, mercury, chemicals, pneumonia, and emergency warning signs.
 - Symptom awareness checker with low, moderate, and high awareness outputs.
-- Exposure risk assessment based on years near mining, activity type, mask use, dust exposure, chemical exposure, and medical screening.
-- Ghana mining health risk dashboard with filter buttons for:
-  - All
-  - Dust
-  - Mercury
-  - Chemical
-  - Respiratory
-- Vanilla JavaScript bar chart rendered from JSON data.
-- Clear disclaimer that the website does not diagnose disease.
-- No login, backend, tracking, paid APIs, or personal medical data collection.
+- Severe-symptom warning for coughing blood, severe chest pain, severe shortness of breath, confusion or fainting, and very high fever.
+- Exposure risk assessment using years near mining work, mining environment, dust frequency, PPE use, mercury or chemical handling, and screening access.
+- Ghana Mining Health Risk Dashboard powered by `data/mining-risk-data.json`.
+- Dashboard search by region or town.
+- Dashboard filters for All, Dust, Mercury, Chemical, and Respiratory exposure categories.
+- Summary cards, animated bar chart, risk badges, and methodology notes.
+- Accessible labels, keyboard-friendly controls, visible focus states, and `aria-live` result areas.
+- No login, backend, tracking, paid APIs, or personal medical record collection.
 
-## Data Limitations
+## Tech Stack
 
-The dashboard uses sample educational data for selected mining areas:
+- HTML
+- CSS
+- Vanilla JavaScript
+- JSON
 
-- Ashanti Region / Obuasi
-- Western Region / Tarkwa-Prestea area
-- Western North / Bibiani area
-- Central Region / Dunkwa-on-Offin area
-- Upper East / Bolgatanga-Kejetia area
-- Ahafo Region / Kenyasi area
-- Eastern Region / Atiwa area
+No frameworks, build tools, npm packages, backend code, or databases are required.
 
-The data is intended for awareness and education only. It is based on known mining activity and broad published health-risk categories such as dust exposure, silica exposure, mercury exposure, chemical exposure, and respiratory warning signs.
+## How To Run Locally
 
-It is not a live medical surveillance database, does not estimate individual disease probability, and should not be used for diagnosis, treatment decisions, emergency triage, or policy enforcement without expert review.
+Open `index.html` with Live Server or any static local server.
 
-## Running the Site
-
-Open `index.html` directly in a browser.
-
-Some browsers restrict local JSON loading when a page is opened directly from the file system. If the dashboard data does not load, run a small local static server from the project folder, for example:
+If opening the file directly prevents the dashboard JSON from loading, run a simple local server from the project folder:
 
 ```bash
 python -m http.server 8000
@@ -67,20 +55,63 @@ Then open:
 http://localhost:8000
 ```
 
+## How To Deploy
+
+This project can be deployed as a static website.
+
+GitHub Pages:
+
+1. Push the project to a GitHub repository.
+2. Open repository settings.
+3. Enable Pages from the main branch.
+4. Keep `index.html`, `styles.css`, `script.js`, and the `data/` folder at the project root.
+
+Vercel:
+
+1. Import the repository into Vercel.
+2. Use the default static-site settings.
+3. Do not add a build command.
+
+## Data Limitations
+
+The dashboard uses educational sample data for:
+
+- Ashanti Region / Obuasi
+- Western Region / Tarkwa-Prestea
+- Western North Region / Bibiani
+- Central Region / Dunkwa-on-Offin
+- Upper East Region / Bolgatanga-Kejetia
+- Ahafo Region / Kenyasi
+- Eastern Region / Atiwa
+
+The dashboard is an educational risk index, not live disease data. It is based on occupational health literature, Ghana mining-location context, and known exposure categories such as dust, silica, mercury, chemicals, and respiratory warning signs.
+
+This first version does not use live hospital data, official diagnosis records, or personal medical records. It does not estimate individual disease probability and should not be used for diagnosis, treatment decisions, emergency triage, legal decisions, or policy enforcement.
+
+## Medical And Ethical Safety Note
+
+MineWatch Ghana is an educational awareness tool. It does not diagnose, treat, cure, confirm disease, or replace medical care.
+
+For symptoms such as coughing blood, severe chest pain, severe shortness of breath, confusion or fainting, very high fever, or rapidly worsening illness, users should seek medical attention as soon as possible.
+
+Any future AI or data collection feature should use privacy protection, consent, data minimization, fairness review, transparent limitations, and health-worker oversight.
+
 ## Future AI Roadmap
 
-Future versions of MineWatch Ghana could include AI-assisted risk education after ethical and technical review. Possible additions include:
+Phase 1: Awareness website and educational risk visualization
 
-- Verified public datasets from health, mining, environmental, and occupational safety sources.
-- Community reporting workflows with privacy protection and moderation.
-- Health-worker partnerships for clinically reviewed guidance.
-- Multilingual support for local Ghanaian languages.
-- Offline-first mobile access for low-connectivity communities.
-- AI-assisted early risk prediction using transparent models, consent, strong privacy safeguards, and clinical oversight.
-- Referral guidance that points users to appropriate qualified care without claiming to diagnose illness.
+Phase 2: Anonymous community survey and reporting
 
-Any AI feature should be designed with public-health ethics, data minimization, fairness, explainability, and human clinical review.
+Phase 3: Health-worker reviewed symptom guidance
 
-## Content Principle
+Phase 4: AI-assisted occupational disease risk prediction using work history, exposure history, symptoms, PPE use, and screening data
 
-MineWatch Ghana uses clear language for ordinary workers and families. Medical terms are avoided where possible or explained in plain English.
+Phase 5: Partnerships with health workers, NGOs, mining communities, and public-health researchers
+
+## Project Files
+
+- `index.html` - Semantic one-page website structure.
+- `styles.css` - Responsive visual design, dashboard styling, accessibility states, and animations.
+- `script.js` - Navigation, reveal animations, counters, symptom checker, exposure assessment, dashboard search/filtering, and chart rendering.
+- `data/mining-risk-data.json` - Educational sample exposure-risk data for selected Ghanaian mining areas.
+- `README.md` - Project documentation, safety boundaries, deployment guidance, and roadmap.

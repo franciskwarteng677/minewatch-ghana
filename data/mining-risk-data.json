@@ -1,72 +1,127 @@
 [
   {
+    "id": "ashanti-obuasi",
     "region": "Ashanti Region",
-    "area": "Obuasi",
-    "riskLevel": "High educational risk",
+    "keyTown": "Obuasi",
+    "miningType": "Deep and surface gold mining, ore handling, and processing",
     "riskScore": 88,
-    "mainActivity": "Deep and surface gold mining, ore handling, and processing",
-    "keyExposureRisks": ["Silica dust", "Respiratory disease", "Chemical processing"],
-    "suggestedHealthFocus": "Dust reduction, respirator use, lung screening, and early care for chronic cough or breathlessness.",
-    "categories": ["Dust", "Chemical", "Respiratory"]
+    "riskLevel": "High",
+    "exposureCategories": ["Dust", "Chemical", "Respiratory"],
+    "possibleHealthConcerns": [
+      "Silica dust exposure",
+      "Chronic cough",
+      "Breathlessness",
+      "Chest irritation"
+    ],
+    "preventionFocus": "Dust reduction, respirator use, wet methods, ventilation, and early lung screening.",
+    "sourceBasis": "Educational sample based on mining-location context and occupational exposure categories.",
+    "methodologyNote": "Educational risk index - not live disease data."
   },
   {
+    "id": "western-tarkwa-prestea",
     "region": "Western Region",
-    "area": "Tarkwa-Prestea area",
-    "riskLevel": "High educational risk",
+    "keyTown": "Tarkwa-Prestea",
+    "miningType": "Gold mining, haul roads, crushing, and mineral processing",
     "riskScore": 84,
-    "mainActivity": "Gold mining, haul roads, crushing, and mineral processing",
-    "keyExposureRisks": ["Mine dust", "Silica exposure", "Processing chemicals"],
-    "suggestedHealthFocus": "Control visible dust, protect processing workers, and encourage regular respiratory checks.",
-    "categories": ["Dust", "Chemical", "Respiratory"]
+    "riskLevel": "High",
+    "exposureCategories": ["Dust", "Chemical", "Respiratory"],
+    "possibleHealthConcerns": [
+      "Mine dust exposure",
+      "Silica exposure",
+      "Processing chemical contact",
+      "Respiratory irritation"
+    ],
+    "preventionFocus": "Control visible dust, protect processing workers, and encourage regular respiratory checks.",
+    "sourceBasis": "Educational sample based on known mining activity and broad health-risk literature.",
+    "methodologyNote": "Educational risk index - not live disease data."
   },
   {
-    "region": "Western North",
-    "area": "Bibiani area",
-    "riskLevel": "Moderate to high educational risk",
+    "id": "western-north-bibiani",
+    "region": "Western North Region",
+    "keyTown": "Bibiani",
+    "miningType": "Gold mining and community-level ore processing",
     "riskScore": 76,
-    "mainActivity": "Gold mining and community-level ore processing",
-    "keyExposureRisks": ["Dust", "Mercury handling", "Respiratory symptoms"],
-    "suggestedHealthFocus": "Safe processing practices, avoiding mercury vapor, and early screening for persistent cough.",
-    "categories": ["Dust", "Mercury", "Respiratory"]
+    "riskLevel": "Moderate to High",
+    "exposureCategories": ["Dust", "Mercury", "Respiratory"],
+    "possibleHealthConcerns": [
+      "Dust irritation",
+      "Mercury vapor exposure",
+      "Persistent cough",
+      "Breathing discomfort"
+    ],
+    "preventionFocus": "Safe processing practices, avoiding mercury vapor, and early screening for persistent cough.",
+    "sourceBasis": "Educational sample based on exposure categories common to gold mining communities.",
+    "methodologyNote": "Educational risk index - not live disease data."
   },
   {
+    "id": "central-dunkwa",
     "region": "Central Region",
-    "area": "Dunkwa-on-Offin area",
-    "riskLevel": "Moderate to high educational risk",
+    "keyTown": "Dunkwa-on-Offin",
+    "miningType": "Alluvial and small-scale gold mining near river systems",
     "riskScore": 73,
-    "mainActivity": "Alluvial and small-scale gold mining near river systems",
-    "keyExposureRisks": ["Mercury exposure", "Contaminated water", "Dust"],
-    "suggestedHealthFocus": "Mercury-safe education, protecting children from chemicals, and reducing dust around processing sites.",
-    "categories": ["Dust", "Mercury", "Chemical"]
+    "riskLevel": "Moderate to High",
+    "exposureCategories": ["Dust", "Mercury", "Chemical"],
+    "possibleHealthConcerns": [
+      "Mercury contact",
+      "Contaminated water exposure",
+      "Dust exposure",
+      "Skin and eye irritation"
+    ],
+    "preventionFocus": "Mercury-safe education, child protection, safer storage, and dust reduction around processing sites.",
+    "sourceBasis": "Educational sample based on mining-location context and known exposure categories.",
+    "methodologyNote": "Educational risk index - not live disease data."
   },
   {
-    "region": "Upper East",
-    "area": "Bolgatanga-Kejetia area",
-    "riskLevel": "Moderate educational risk",
+    "id": "upper-east-bolgatanga-kejetia",
+    "region": "Upper East Region",
+    "keyTown": "Bolgatanga-Kejetia",
+    "miningType": "Artisanal and small-scale gold mining",
     "riskScore": 68,
-    "mainActivity": "Artisanal and small-scale gold mining",
-    "keyExposureRisks": ["Mercury burning", "Dust", "Chemical contact"],
-    "suggestedHealthFocus": "Avoid burning mercury in homes, improve ventilation, and seek care for breathing or nervous-system symptoms.",
-    "categories": ["Dust", "Mercury", "Chemical", "Respiratory"]
+    "riskLevel": "Moderate",
+    "exposureCategories": ["Dust", "Mercury", "Chemical", "Respiratory"],
+    "possibleHealthConcerns": [
+      "Mercury burning exposure",
+      "Dust inhalation",
+      "Chemical contact",
+      "Respiratory symptoms"
+    ],
+    "preventionFocus": "Avoid burning mercury near homes, improve ventilation, and seek care for breathing or nervous-system symptoms.",
+    "sourceBasis": "Educational sample based on occupational health literature and artisanal mining exposure patterns.",
+    "methodologyNote": "Educational risk index - not live disease data."
   },
   {
+    "id": "ahafo-kenyasi",
     "region": "Ahafo Region",
-    "area": "Kenyasi area",
-    "riskLevel": "Moderate educational risk",
+    "keyTown": "Kenyasi",
+    "miningType": "Large-scale gold mining and nearby community exposure",
     "riskScore": 64,
-    "mainActivity": "Large-scale gold mining and nearby community exposure",
-    "keyExposureRisks": ["Dust from roads", "Respiratory irritation", "Chemical handling"],
-    "suggestedHealthFocus": "Community dust control, protective equipment for workers, and routine checks for respiratory symptoms.",
-    "categories": ["Dust", "Chemical", "Respiratory"]
+    "riskLevel": "Moderate",
+    "exposureCategories": ["Dust", "Chemical", "Respiratory"],
+    "possibleHealthConcerns": [
+      "Road dust",
+      "Respiratory irritation",
+      "Chemical handling concerns",
+      "Persistent cough"
+    ],
+    "preventionFocus": "Community dust control, protective equipment for workers, and routine checks for respiratory symptoms.",
+    "sourceBasis": "Educational sample based on mining-location context and public-health exposure categories.",
+    "methodologyNote": "Educational risk index - not live disease data."
   },
   {
+    "id": "eastern-atiwa",
     "region": "Eastern Region",
-    "area": "Atiwa area",
-    "riskLevel": "Moderate educational risk",
+    "keyTown": "Atiwa",
+    "miningType": "Bauxite exploration context, quarrying, and community dust concerns",
     "riskScore": 59,
-    "mainActivity": "Bauxite exploration context, quarrying, and community dust concerns",
-    "keyExposureRisks": ["Dust", "Land disturbance", "Respiratory irritation"],
-    "suggestedHealthFocus": "Prevent dust exposure during excavation and transport, and monitor cough or breathing complaints early.",
-    "categories": ["Dust", "Respiratory"]
+    "riskLevel": "Moderate",
+    "exposureCategories": ["Dust", "Respiratory"],
+    "possibleHealthConcerns": [
+      "Dust exposure",
+      "Land disturbance",
+      "Cough or breathing irritation"
+    ],
+    "preventionFocus": "Prevent dust exposure during excavation and transport, and monitor cough or breathing complaints early.",
+    "sourceBasis": "Educational sample based on mining-location context and dust exposure categories.",
+    "methodologyNote": "Educational risk index - not live disease data."
   }
 ]
