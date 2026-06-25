@@ -16,7 +16,7 @@ const fallbackMiningRiskData = [
     possibleHealthConcerns: ["Silica dust exposure", "Chronic cough", "Breathlessness", "Chest irritation"],
     preventionFocus: "Dust reduction, respirator use, wet methods, ventilation, and early lung screening.",
     sourceBasis: "Educational sample based on mining-location context and occupational exposure categories.",
-    methodologyNote: "Educational risk index - not live disease data."
+    methodologyNote: "Educational risk index - not live disease data, official medical surveillance, or confirmed disease rates."
   },
   {
     id: "western-tarkwa-prestea",
@@ -29,7 +29,7 @@ const fallbackMiningRiskData = [
     possibleHealthConcerns: ["Mine dust exposure", "Silica exposure", "Processing chemical contact"],
     preventionFocus: "Control visible dust, protect processing workers, and encourage regular respiratory checks.",
     sourceBasis: "Educational sample based on known mining activity and broad health-risk literature.",
-    methodologyNote: "Educational risk index - not live disease data."
+    methodologyNote: "Educational risk index - not live disease data, official medical surveillance, or confirmed disease rates."
   },
   {
     id: "western-north-bibiani",
@@ -42,7 +42,7 @@ const fallbackMiningRiskData = [
     possibleHealthConcerns: ["Dust irritation", "Mercury vapor exposure", "Persistent cough"],
     preventionFocus: "Safe processing practices, avoiding mercury vapor, and early screening for persistent cough.",
     sourceBasis: "Educational sample based on exposure categories common to gold mining communities.",
-    methodologyNote: "Educational risk index - not live disease data."
+    methodologyNote: "Educational risk index - not live disease data, official medical surveillance, or confirmed disease rates."
   },
   {
     id: "central-dunkwa",
@@ -55,7 +55,7 @@ const fallbackMiningRiskData = [
     possibleHealthConcerns: ["Mercury contact", "Contaminated water exposure", "Dust exposure"],
     preventionFocus: "Mercury-safe education, child protection, safer storage, and dust reduction around processing sites.",
     sourceBasis: "Educational sample based on mining-location context and known exposure categories.",
-    methodologyNote: "Educational risk index - not live disease data."
+    methodologyNote: "Educational risk index - not live disease data, official medical surveillance, or confirmed disease rates."
   },
   {
     id: "upper-east-bolgatanga-kejetia",
@@ -68,7 +68,7 @@ const fallbackMiningRiskData = [
     possibleHealthConcerns: ["Mercury burning exposure", "Dust inhalation", "Chemical contact"],
     preventionFocus: "Avoid burning mercury near homes, improve ventilation, and seek care for breathing or nervous-system symptoms.",
     sourceBasis: "Educational sample based on occupational health literature and artisanal mining exposure patterns.",
-    methodologyNote: "Educational risk index - not live disease data."
+    methodologyNote: "Educational risk index - not live disease data, official medical surveillance, or confirmed disease rates."
   },
   {
     id: "ahafo-kenyasi",
@@ -81,7 +81,7 @@ const fallbackMiningRiskData = [
     possibleHealthConcerns: ["Road dust", "Respiratory irritation", "Chemical handling concerns"],
     preventionFocus: "Community dust control, protective equipment for workers, and routine checks for respiratory symptoms.",
     sourceBasis: "Educational sample based on mining-location context and public-health exposure categories.",
-    methodologyNote: "Educational risk index - not live disease data."
+    methodologyNote: "Educational risk index - not live disease data, official medical surveillance, or confirmed disease rates."
   },
   {
     id: "eastern-atiwa",
@@ -94,7 +94,7 @@ const fallbackMiningRiskData = [
     possibleHealthConcerns: ["Dust exposure", "Land disturbance", "Cough or breathing irritation"],
     preventionFocus: "Prevent dust exposure during excavation and transport, and monitor cough or breathing complaints early.",
     sourceBasis: "Educational sample based on mining-location context and dust exposure categories.",
-    methodologyNote: "Educational risk index - not live disease data."
+    methodologyNote: "Educational risk index - not live disease data, official medical surveillance, or confirmed disease rates."
   }
 ];
 
@@ -125,22 +125,36 @@ document.addEventListener("DOMContentLoaded", () => {
 function setupNavigation() {
   const toggle = document.querySelector(".nav-toggle");
   const menu = document.querySelector(".nav-menu");
+  const toggleLabel = toggle?.querySelector(".sr-only");
 
   if (!toggle || !menu) return;
 
   toggle.addEventListener("click", () => {
     const isOpen = menu.classList.toggle("open");
     toggle.setAttribute("aria-expanded", String(isOpen));
+    if (toggleLabel) toggleLabel.textContent = isOpen ? "Close navigation menu" : "Open navigation menu";
     document.body.classList.toggle("nav-open", isOpen);
   });
 
   menu.addEventListener("click", (event) => {
     if (event.target.matches("a")) {
-      menu.classList.remove("open");
-      toggle.setAttribute("aria-expanded", "false");
-      document.body.classList.remove("nav-open");
+      closeMenu(menu, toggle, toggleLabel);
     }
   });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && menu.classList.contains("open")) {
+      closeMenu(menu, toggle, toggleLabel);
+      toggle.focus();
+    }
+  });
+}
+
+function closeMenu(menu, toggle, toggleLabel) {
+  menu.classList.remove("open");
+  toggle.setAttribute("aria-expanded", "false");
+  if (toggleLabel) toggleLabel.textContent = "Open navigation menu";
+  document.body.classList.remove("nav-open");
 }
 
 function setupRevealAnimation() {
@@ -284,9 +298,9 @@ function setupRiskAssessment() {
     const increasedRisk = fields.filter((field) => field.value >= 2);
     const level = score >= 14 ? "high" : score >= 8 ? "moderate" : "low";
     const titles = {
-      low: "Lower exposure risk",
-      moderate: "Moderate exposure risk",
-      high: "High exposure risk"
+      low: "Lower possible exposure risk",
+      moderate: "Moderate possible exposure risk",
+      high: "High possible exposure risk"
     };
     const preventionAdvice = {
       low: "Keep using protection, reducing dust, and attending screening when available.",
@@ -301,7 +315,7 @@ function setupRiskAssessment() {
 
     showDetailedResult(result, {
       level,
-      label: `${level} exposure result`,
+      label: `${level} possible exposure result`,
       title: titles[level],
       score,
       reasons: increasedRisk.length
@@ -436,7 +450,7 @@ function renderRegionCards(regions) {
   if (!grid) return;
 
   if (!regions.length) {
-    grid.innerHTML = `<p class="empty-state">No areas match this search or filter. Educational risk index - not live disease data.</p>`;
+    grid.innerHTML = `<p class="empty-state">No areas match this search or filter. Educational risk index - not live disease data, official medical surveillance, or confirmed disease rates.</p>`;
     return;
   }
 
@@ -444,18 +458,18 @@ function renderRegionCards(regions) {
     .map(
       (region) => `
         <article class="region-card reveal visible">
-          <span class="badge ${riskClass(region.riskLevel)}">${region.riskLevel} risk</span>
-          <h3>${region.region}</h3>
-          <p class="location">${region.keyTown}</p>
-          <p><strong>Mining context:</strong> ${region.miningType}</p>
-          <p><strong>Risk score:</strong> ${region.riskScore}/100</p>
+          <span class="badge ${riskClass(region.riskLevel)}">${escapeHTML(region.riskLevel)} risk</span>
+          <h3>${escapeHTML(region.region)}</h3>
+          <p class="location">${escapeHTML(region.keyTown)}</p>
+          <p><strong>Mining context:</strong> ${escapeHTML(region.miningType)}</p>
+          <p><strong>Educational score:</strong> ${Number(region.riskScore)}/100</p>
           <div class="tag-list" aria-label="Exposure categories">
-            ${region.exposureCategories.map((risk) => `<span>${risk}</span>`).join("")}
+            ${region.exposureCategories.map((risk) => `<span>${escapeHTML(risk)}</span>`).join("")}
           </div>
-          <p><strong>Possible health concerns:</strong> ${region.possibleHealthConcerns.join(", ")}</p>
-          <p><strong>Prevention focus:</strong> ${region.preventionFocus}</p>
-          <p><strong>Source basis:</strong> ${region.sourceBasis}</p>
-          <p class="method-note">${region.methodologyNote}</p>
+          <p><strong>Possible health concerns:</strong> ${region.possibleHealthConcerns.map(escapeHTML).join(", ")}</p>
+          <p><strong>Prevention focus:</strong> ${escapeHTML(region.preventionFocus)}</p>
+          <p><strong>Source basis:</strong> ${escapeHTML(region.sourceBasis)}</p>
+          <p class="method-note">${escapeHTML(region.methodologyNote)}</p>
         </article>
       `
     )
@@ -474,7 +488,7 @@ function renderChart(regions) {
       (region) => `
         <div class="bar-item">
           <div class="bar-meta">
-            <span>${region.keyTown}</span>
+            <span>${escapeHTML(region.keyTown)}</span>
             <strong>${region.riskScore}/100</strong>
           </div>
           <div class="bar-track">
@@ -491,4 +505,13 @@ function riskClass(level) {
   if (normalized.includes("high")) return "high-risk";
   if (normalized.includes("medium") || normalized.includes("moderate")) return "medium-risk";
   return "lower-risk";
+}
+
+function escapeHTML(value) {
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 }

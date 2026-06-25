@@ -15,7 +15,7 @@
     ],
     "preventionFocus": "Dust reduction, respirator use, wet methods, ventilation, and early lung screening.",
     "sourceBasis": "Educational sample based on mining-location context and occupational exposure categories.",
-    "methodologyNote": "Educational risk index - not live disease data."
+    "methodologyNote": "Educational risk index - not live disease data, official medical surveillance, or confirmed disease rates."
   },
   {
     "id": "western-tarkwa-prestea",
@@ -33,7 +33,7 @@
     ],
     "preventionFocus": "Control visible dust, protect processing workers, and encourage regular respiratory checks.",
     "sourceBasis": "Educational sample based on known mining activity and broad health-risk literature.",
-    "methodologyNote": "Educational risk index - not live disease data."
+    "methodologyNote": "Educational risk index - not live disease data, official medical surveillance, or confirmed disease rates."
   },
   {
     "id": "western-north-bibiani",
@@ -51,7 +51,7 @@
     ],
     "preventionFocus": "Safe processing practices, avoiding mercury vapor, and early screening for persistent cough.",
     "sourceBasis": "Educational sample based on exposure categories common to gold mining communities.",
-    "methodologyNote": "Educational risk index - not live disease data."
+    "methodologyNote": "Educational risk index - not live disease data, official medical surveillance, or confirmed disease rates."
   },
   {
     "id": "central-dunkwa",
@@ -69,7 +69,7 @@
     ],
     "preventionFocus": "Mercury-safe education, child protection, safer storage, and dust reduction around processing sites.",
     "sourceBasis": "Educational sample based on mining-location context and known exposure categories.",
-    "methodologyNote": "Educational risk index - not live disease data."
+    "methodologyNote": "Educational risk index - not live disease data, official medical surveillance, or confirmed disease rates."
   },
   {
     "id": "upper-east-bolgatanga-kejetia",
@@ -87,7 +87,7 @@
     ],
     "preventionFocus": "Avoid burning mercury near homes, improve ventilation, and seek care for breathing or nervous-system symptoms.",
     "sourceBasis": "Educational sample based on occupational health literature and artisanal mining exposure patterns.",
-    "methodologyNote": "Educational risk index - not live disease data."
+    "methodologyNote": "Educational risk index - not live disease data, official medical surveillance, or confirmed disease rates."
   },
   {
     "id": "ahafo-kenyasi",
@@ -105,7 +105,7 @@
     ],
     "preventionFocus": "Community dust control, protective equipment for workers, and routine checks for respiratory symptoms.",
     "sourceBasis": "Educational sample based on mining-location context and public-health exposure categories.",
-    "methodologyNote": "Educational risk index - not live disease data."
+    "methodologyNote": "Educational risk index - not live disease data, official medical surveillance, or confirmed disease rates."
   },
   {
     "id": "eastern-atiwa",
@@ -122,6 +122,6 @@
     ],
     "preventionFocus": "Prevent dust exposure during excavation and transport, and monitor cough or breathing complaints early.",
     "sourceBasis": "Educational sample based on mining-location context and dust exposure categories.",
-    "methodologyNote": "Educational risk index - not live disease data."
+    "methodologyNote": "Educational risk index - not live disease data, official medical surveillance, or confirmed disease rates."
   }
 ]

@@ -53,8 +53,8 @@
               Educational awareness only. This website cannot diagnose, treat, cure, or confirm disease.
             </p>
             <div class="hero-actions" aria-label="Quick actions">
-              <a class="button primary" href="#checker">Start Health Check</a>
-              <a class="button secondary" href="#dashboard">View Risk Dashboard</a>
+              <a class="button primary" href="#checker">Start Awareness Check</a>
+              <a class="button secondary" href="#dashboard">View Educational Dashboard</a>
               <a class="button ghost" href="#prevention">Read Prevention Guide</a>
             </div>
           </div>
@@ -216,7 +216,7 @@
                 <dt>What it means</dt>
                 <dd>Symptoms that need urgent attention, especially when they are persistent or worsening.</dd>
                 <dt>Why it matters</dt>
-                <dd>Early treatment can reduce complications and protect families from preventable loss.</dd>
+                <dd>Early medical attention can help people respond before symptoms become worse.</dd>
                 <dt>Common warning signs</dt>
                 <dd>Coughing blood, severe chest pain, severe breathlessness, high fever, night sweats, and rapid weight loss.</dd>
                 <dt>What to do early</dt>
@@ -274,7 +274,7 @@
         <div class="container">
           <div class="section-heading reveal">
             <p class="eyebrow">Risk Assessment</p>
-            <h2>Estimate exposure risk from work and living conditions.</h2>
+            <h2>Estimate possible exposure risk from work and living conditions.</h2>
           </div>
           <div class="tool-layout reverse">
             <form class="tool-card reveal" id="risk-form">
@@ -344,7 +344,7 @@
             <p class="eyebrow">Ghana Mining Health Risk Dashboard</p>
             <h2>Educational risk visualization for selected mining areas.</h2>
             <p>
-              Educational risk index - not live disease data. This dashboard is based on known mining activity and exposure categories, not hospital records or diagnosis numbers.
+              Educational risk index - not live disease data, not official medical surveillance, and not confirmed disease rates. This dashboard uses educational sample data based on mining-location context and occupational exposure categories.
             </p>
           </div>
 
@@ -370,7 +370,7 @@
                 <h3>Relative educational risk score</h3>
                 <span id="chart-count">0 areas</span>
               </div>
-              <p class="method-note">Educational risk index - not live disease data.</p>
+              <p class="method-note">Educational risk index - not live disease data, official medical surveillance, or confirmed disease rates.</p>
               <div class="bar-chart" id="risk-chart" aria-label="Risk score bar chart"></div>
             </div>
             <div class="region-grid" id="region-grid" aria-live="polite"></div>
@@ -438,16 +438,18 @@
               MineWatch Ghana uses educational risk categories linked to occupational health literature, Ghana mining-location context, known exposure categories, and transparent limitations. It explains mineral dust, silica, mercury, processing chemicals, and respiratory illness warning signs in plain language.
             </p>
             <p>
-              This first version does not use live hospital data, official diagnosis records, or personal medical records.
+              This first version does not use live hospital data, official diagnosis records, official government disease surveillance, confirmed disease rates, or personal medical records.
             </p>
             <p>
-              Future versions may include verified public datasets, community reports, health-worker partnerships, safer-mining program data, and AI-assisted early risk prediction after ethical review, privacy safeguards, and clinical oversight.
+              Future versions may include verified public datasets, community reports, health-worker partnerships, safer-mining program data, and ethically reviewed decision-support research after privacy safeguards and clinical oversight are in place.
             </p>
-            <div class="source-list" aria-label="Reference categories">
-              <span>WHO occupational health guidance</span>
-              <span>ILO mining safety principles</span>
-              <span>Ghana mining activity context</span>
-              <span>Public health respiratory risk categories</span>
+            <div class="source-list evidence-list" aria-label="Source direction and evidence base">
+              <span>NIOSH mining health and silicosis resources</span>
+              <span>WHO mercury exposure and artisanal gold mining resources</span>
+              <span>Ghana mining and occupational-health research</span>
+              <span>Ghana mining-location context</span>
+              <span>Future Ghana Minerals Commission and public-health datasets</span>
+              <span>Future community survey data, only with ethical safeguards</span>
             </div>
             <div class="disclaimer" role="note">
               <strong>Medical safety note:</strong>
@@ -465,7 +467,7 @@
             Share simple health information, encourage early screening, protect children from exposure, and support safer mining practices across Ghana.
           </p>
           <div class="hero-actions">
-            <a class="button primary" href="#checker">Start Health Check</a>
+            <a class="button primary" href="#checker">Start Awareness Check</a>
             <a class="button secondary" href="#dashboard">Explore Dashboard</a>
           </div>
         </div>
@@ -475,8 +477,11 @@
     <footer class="site-footer">
       <div class="container footer-inner">
         <p>&copy; 2026 MineWatch Ghana. Educational awareness only.</p>
-        <p>Educational risk index - not live disease data. No personal medical records collected.</p>
-        <a href="#hero">Back to top</a>
+        <p>Educational risk index - not live disease data, official medical surveillance, or confirmed disease rates. No personal medical records collected.</p>
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="#methodology">Methodology</a>
+          <a href="#hero">Back to top</a>
+        </nav>
       </div>
     </footer>
 
