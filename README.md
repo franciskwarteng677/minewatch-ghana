@@ -11,16 +11,18 @@ This project is for health education and early awareness. It does not diagnose d
 
 ## Ask MineWatch AI
 
-Ask MineWatch AI is a free rule-based educational chat assistant for mining-health questions. It runs fully in the browser with vanilla JavaScript, so it works with Live Server and static deployment without any API key, backend, billing, or external AI service.
+Ask MineWatch AI is an educational chat assistant for mining-health questions. It works offline by default using a rule-based response engine in `script.js`, so it still works with Live Server and static deployment without any API key or backend.
+
+For deployments on Vercel, the assistant can optionally use GroqCloud when `GROQ_API_KEY` is configured. If the API key is missing, the request fails, or the Groq request is unavailable, the assistant automatically falls back to the existing offline rule-based response.
 
 The assistant is not a doctor. It does not diagnose, treat, cure, confirm disease, predict confirmed disease, or replace care from qualified medical professionals. For severe or worsening symptoms, it should advise users to seek medical attention as soon as possible.
 
 Current design:
 
-- Responses are generated locally in `script.js`.
-- No OpenAI API, OpenAI SDK, API key, serverless function, or payment is required.
+- Responses are generated locally in `script.js` when offline mode is used.
+- Optional Groq-backed responses are served through the Vercel serverless route in `api/ask.js`.
 - The assistant uses keyword and phrase matching for topics such as dust, silica, pneumoconiosis, mercury, chemicals, cough, chest pain, breathlessness, PPE, prevention, mining work history, screening, and family protection.
-- Future versions may connect to reviewed AI models if funding, API access, ethical review, and health-worker oversight become available.
+- The assistant is educational and not a diagnosis system.
 
 ## Problem Statement
 
@@ -56,8 +58,9 @@ The tone is intentionally serious, respectful, and humanitarian. It avoids fear-
 - CSS
 - Vanilla JavaScript
 - JSON
+- Vercel serverless functions
 
-No frontend frameworks, React, Next.js, Vite, Tailwind, backend code, databases, authentication, external AI service, or client-side API keys are used.
+No frontend frameworks, React, Next.js, Vite, Tailwind, or client-side API keys are used. Optional AI responses are handled server-side through `api/ask.js`.
 
 ## How To Run Locally
 
@@ -68,8 +71,8 @@ You can also use any simple static server. If your local browser blocks JSON loa
 Important local testing note:
 
 - Live Server can preview the static website, dashboard, symptom checker, risk assessment, and Ask MineWatch AI.
-- Ask MineWatch AI works locally because it is rule-based and runs in the browser.
-- No `OPENAI_API_KEY`, Vercel local function runtime, npm install, or backend setup is required for the current version.
+- Ask MineWatch AI works locally because it uses the built-in offline rule-based response engine in `script.js`.
+- No `GROQ_API_KEY`, Vercel local function runtime, or backend setup is required for local use.
 
 ## How To Deploy
 
@@ -83,12 +86,13 @@ GitHub Pages:
 Vercel:
 
 1. Import the repository into Vercel.
-2. Use the default static-site setup.
+2. Use the default setup for a static site with serverless functions.
 3. Leave the build command empty.
-4. Deploy the project.
-5. Test the Ask MineWatch AI panel after deployment.
+4. Add the environment variable `GROQ_API_KEY` in Vercel if you want optional Groq-backed answers.
+5. Deploy the project.
+6. Test the Ask MineWatch AI panel after deployment.
 
-The current version does not require environment variables or paid API setup. Future optional AI API versions should keep all API keys out of frontend files.
+If `GROQ_API_KEY` is not set, the assistant still works using the offline fallback. Do not place API keys in frontend files.
 
 ## Data Limitations
 

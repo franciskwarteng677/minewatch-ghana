@@ -1,0 +1,12 @@
+{
+  "name": "minewatch-ghana",
+  "version": "1.1.0",
+  "private": true,
+  "description": "MineWatch Ghana static educational site with optional Groq-backed Ask MineWatch AI support",
+  "scripts": {
+    "test": "node --check api/ask.js && node --check script.js"
+  },
+  "dependencies": {
+    "groq-sdk": "^0.3.0"
+  }
+}

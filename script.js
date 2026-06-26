@@ -427,7 +427,7 @@ function closeAIPanel(toggle, panel) {
   toggle.setAttribute("aria-expanded", "false");
 }
 
-function sendAIQuestion({ input, messages, sendButton }) {
+async function sendAIQuestion({ input, messages, sendButton }) {
   if (sendButton.disabled) return;
 
   const question = input.value.trim();
@@ -445,13 +445,40 @@ function sendAIQuestion({ input, messages, sendButton }) {
 
   const loadingMessage = appendAIMessage(messages, "assistant loading", "Thinking");
 
-  window.setTimeout(() => {
-    const answer = generateMineWatchResponse(question);
+  try {
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => controller.abort(), 7000);
+
+    const response = await fetch("/api/ask", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ question }),
+      signal: controller.signal
+    });
+
+    window.clearTimeout(timeoutId);
+
+    let payload = {};
+
+    try {
+      payload = await response.json();
+    } catch (error) {
+      payload = {};
+    }
+
+    const answer = payload.answer && typeof payload.answer === "string" && payload.answer.trim()
+      ? payload.answer.trim()
+      : generateMineWatchResponse(question);
+
     loadingMessage.remove();
     appendAIMessage(messages, "assistant", answer);
+  } catch (error) {
+    loadingMessage.remove();
+    appendAIMessage(messages, "assistant", generateMineWatchResponse(question));
+  } finally {
     sendButton.disabled = false;
     sendButton.textContent = "Send";
-  }, 220);
+  }
 }
 
 function generateMineWatchResponse(question) {
