@@ -1062,12 +1062,13 @@ select {
   animation: ai-dots 1.2s steps(4, end) infinite;
 }
 
-.ai-offline-note {
+.ai-status {
   margin: 0;
   padding: 0 1rem 0.8rem;
-  color: var(--soft);
-  font-size: 0.84rem;
-  font-weight: 750;
+  color: #e1d2a6;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
 }
 
 .ai-suggestions {
@@ -1101,6 +1102,13 @@ select {
   gap: 0.6rem;
   padding: 1rem;
   border-top: 1px solid var(--border);
+}
+
+.ai-input-hint {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--soft);
+  font-size: 0.76rem;
 }
 
 .ai-form input {

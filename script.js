@@ -374,9 +374,14 @@ function setupMineWatchAI() {
   const input = document.querySelector("[data-ai-input]");
   const sendButton = document.querySelector("[data-ai-send]");
   const messages = document.querySelector("[data-ai-messages]");
+  const statusElement = document.querySelector("[data-ai-status]");
   const suggestionButtons = document.querySelectorAll("[data-ai-question]");
 
   if (!toggle || !panel || !form || !input || !sendButton || !messages) return;
+
+  if (statusElement) {
+    statusElement.textContent = "Offline guide active.";
+  }
 
   toggle.addEventListener("click", () => {
     const isOpen = panel.classList.contains("open");
@@ -397,13 +402,13 @@ function setupMineWatchAI() {
   suggestionButtons.forEach((button) => {
     button.addEventListener("click", () => {
       input.value = button.dataset.aiQuestion || "";
-      sendAIQuestion({ input, messages, sendButton });
+      sendAIQuestion({ input, messages, sendButton, statusElement });
     });
   });
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
-    sendAIQuestion({ input, messages, sendButton });
+    sendAIQuestion({ input, messages, sendButton, statusElement });
   });
 
   document.addEventListener("keydown", (event) => {
@@ -427,7 +432,7 @@ function closeAIPanel(toggle, panel) {
   toggle.setAttribute("aria-expanded", "false");
 }
 
-async function sendAIQuestion({ input, messages, sendButton }) {
+async function sendAIQuestion({ input, messages, sendButton, statusElement }) {
   if (sendButton.disabled) return;
 
   const question = input.value.trim();
@@ -466,13 +471,20 @@ async function sendAIQuestion({ input, messages, sendButton }) {
       payload = {};
     }
 
-    const answer = payload.answer && typeof payload.answer === "string" && payload.answer.trim()
-      ? payload.answer.trim()
-      : generateMineWatchResponse(question);
+    const usedGroq = Boolean(payload.answer && typeof payload.answer === "string" && payload.answer.trim());
+    const answer = usedGroq ? payload.answer.trim() : generateMineWatchResponse(question);
+
+    if (statusElement) {
+      statusElement.textContent = usedGroq ? "Groq AI active." : "Offline guide active.";
+    }
 
     loadingMessage.remove();
     appendAIMessage(messages, "assistant", answer);
   } catch (error) {
+    if (statusElement) {
+      statusElement.textContent = "Offline guide active.";
+    }
+
     loadingMessage.remove();
     appendAIMessage(messages, "assistant", generateMineWatchResponse(question));
   } finally {
